@@ -1,38 +1,38 @@
 #include <iostream>
 #include <cmath> //for pow
+#include <iomanip>
 using namespace std;
 
-double valueCalc(double month, double annual, double time) {
-    //get monthly rate
-    double monthlyRate = (annual/ 100) / 12;
-    //get total months for proper multiplying
-    double totalMonths = time * 12;
-    //calculate the future value
-    double futureValue = month * ((pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate);
+double futureValue(double monthly, double rate, double years) {
+    double futureVal = 0.0;
+    double monthlyInt = 0;
+    //input conversions
+    double monthlyRate = rate / 12.0 / 100;
+    int months = years * 12;
 
-    //Rule of 72 to find years to double
-    double doubleTime = 72 / annual;
+    // calculation
+    for (int i = 0; i < months; i++) {
+        futureVal += monthly;
+        monthlyInt =  futureVal * monthlyRate;
+        futureVal = futureVal + monthlyInt;
+    }
+    return futureVal;
+}
 
+double ruleOf72(double annual) {
+    //Rule of 72
+    double rule = 72 / annual;
     cout.setf(ios::fixed);
     cout.precision(2);
-    cout << "The future value will be $" << futureValue << endl;
-    cout << "The account balance would double every " << doubleTime << " years after." << endl;
-    return futureValue;
+    return rule;
 }
 
 int main(){
-    //declare variables
-    double monthly, APY, term;
-    //get user input
-    cout << "FUTURE VALUE CALCULATOR" << endl;
-    cout << "Enter your monthly investment: $";
-    cin >> monthly;
-    cout << "Enter APY for investment: %";
-    cin >> APY;
-    cout << "Enter term for investment: ";
-    cin >> term;
-
-    //external function for calculations.
-    valueCalc(monthly, APY, term);
+    // testing the futureValue function and rule of 72
+    cout << fixed << setprecision(2);
+    cout << "The future Value will be $" << futureValue(100, 8.25,10.5) << endl;
+    cout << "The account balance would double every " << ruleOf72(8.25) << " years after." << endl;
+    cout << "The future Value will be $" << futureValue(500, 6.35, 5) << endl;
+    cout << "The account balance would double every " << ruleOf72(6.35) << " years after." << endl;
     return 0;
 }
