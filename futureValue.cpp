@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath> //for pow
 #include <iomanip>
 using namespace std;
 
@@ -30,9 +29,10 @@ double ruleOf72(double annual) {
 int main(){
     // testing the futureValue function and rule of 72
     cout << fixed << setprecision(2);
-    cout << "The future Value will be $" << futureValue(100, 8.25,10.5) << endl;
+    cout << "The future value will be $" << futureValue(100, 8.25,10.5) << endl;
     cout << "The account balance would double every " << ruleOf72(8.25) << " years after." << endl;
-    cout << "The future Value will be $" << futureValue(500, 6.35, 5) << endl;
+    cout << endl;
+    cout << "The future value will be $" << futureValue(500, 6.35, 5) << endl;
     cout << "The account balance would double every " << ruleOf72(6.35) << " years after." << endl;
     return 0;
 }
